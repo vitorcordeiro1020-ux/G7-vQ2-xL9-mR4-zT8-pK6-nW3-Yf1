@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="VtDcs">
+    <meta name="description" content="Um pequeno lugar feito para guardar momentos especiais.">
+
+    <title>Um lugar só nosso 💙</title>
+
+    <style>
+        :root {
+            --bg: #070914;
+            --bg-2: #0d1224;
+            --card: rgba(18, 24, 47, 0.78);
+            --card-2: rgba(28, 36, 68, 0.8);
+            --blue: #69a9ff;
+            --blue-2: #a9d0ff;
+            --purple: #a98cff;
+            --pink: #ff91b8;
+            --text: #f6f7ff;
+            --muted: #aab3cf;
+            --border: rgba(156, 199, 255, 0.16);
+            --danger: #ff718d;
+            --shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 10% 5%, rgba(105,169,255,.17), transparent 28%),
+                radial-gradient(circle at 90% 15%, rgba(169,140,255,.15), transparent 30%),
+                radial-gradient(circle at 50% 100%, rgba(255,145,184,.08), transparent 35%),
+                var(--bg);
+            font-family: Inter, Arial, Helvetica, sans-serif;
+            overflow-x: hidden;
+        }
+
+        button, input {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* LOGIN */
+
+        #loginScreen {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-orb {
+            position: absolute;
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            background: rgba(105,169,255,.09);
+            filter: blur(10px);
+        }
+
+        .login-orb.one {
+            top: -170px;
+            left: -130px;
+        }
+
+        .login-orb.two {
+            right: -160px;
+            bottom: -180px;
+            background: rgba(169,140,255,.09);
+        }
+
+        .login-card {
+            width: min(440px, 100%);
+            padding: 38px 30px;
+            text-align: center;
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            background: rgba(15, 20, 40, .78);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            display: grid;
+            place-items: center;
+            border-radius: 22px;
+            background: linear-gradient(145deg, rgba(105,169,255,.16), rgba(169,140,255,.1));
+            border: 1px solid var(--border);
+            font-size: 31px;
+        }
+
+        .login-card h1 {
+            margin: 0;
+            font-size: 31px;
+            letter-spacing: -1px;
+        }
+
+        .login-card p {
+            color: var(--muted);
+            line-height: 1.6;
+            margin: 10px 0 25px;
+        }
+
+        .password-box {
+            display: flex;
+            gap: 8px;
+        }
+
+        .password-box input {
+            min-width: 0;
+            flex: 1;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            padding: 13px 14px;
+            color: var(--text);
+            background: rgba(255,255,255,.045);
+            outline: none;
+        }
+
+        .password-box input:focus {
+            border-color: rgba(105,169,255,.6);
+        }
+
+        .btn {
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            padding: 13px 17px;
+            color: var(--text);
+            background: var(--card);
+            font-weight: 900;
+            transition: .18s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            border-color: rgba(156,199,255,.42);
+        }
+
+        .btn-primary {
+            border-color: transparent;
+            color: #07101e;
+            background: linear-gradient(135deg, var(--blue-2), var(--blue));
+        }
+
+        #loginError {
+            min-height: 20px;
+            margin-top: 12px;
+            color: var(--danger);
+            font-size: 13px;
+        }
+
+        /* SITE */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            border-bottom: 1px solid var(--border);
+            background: rgba(7,9,20,.76);
+            backdrop-filter: blur(18px);
+        }
+
+        .nav {
+            width: min(1100px, 92%);
+            min-height: 70px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand {
+            font-weight: 950;
+            letter-spacing: -.5px;
+        }
+
+        .brand span {
+            color: var(--blue);
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: flex-end;
+        }
+
+        .nav-links a,
+        .logout {
+            padding: 9px 11px;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        .nav-links a:hover,
+        .logout:hover {
+            color: var(--text);
+            border-color: var(--border);
+            background: rgba(255,255,255,.035);
+        }
+
+        .logout {
+            background: transparent;
+        }
+
+        main {
+            width: min(1100px, 92%);
+            margin: auto;
+        }
+
+        .hero {
+            min-height: 82vh;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            padding: 80px 0 60px;
+        }
+
+        .hero-content {
+            max-width: 780px;
+        }
+
+        .badge {
+            display: inline-flex;
+            padding: 8px 13px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--blue-2);
+            background: rgba(105,169,255,.07);
+            font-size: 11px;
+            font-weight: 950;
+            letter-spacing: 1.5px;
+        }
+
+        .hero h1 {
+            margin: 25px 0 15px;
+            font-size: clamp(48px, 9vw, 92px);
+            line-height: .92;
+            letter-spacing: -5px;
+        }
+
+        .gradient {
+            background: linear-gradient(90deg, var(--blue-2), var(--purple), var(--pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: auto;
+            color: var(--muted);
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        section {
+            padding: 75px 0;
+        }
+
+        .section-title {
+            margin-bottom: 28px;
+        }
+
+        .eyebrow {
+            color: var(--blue);
+            font-size: 11px;
+            font-weight: 950;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            margin: 7px 0;
+            font-size: clamp(30px, 5vw, 48px);
+            letter-spacing: -2px;
+        }
+
+        .section-title p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* CARTA */
+
+        .letter {
+            position: relative;
+            overflow: hidden;
+            padding: clamp(25px, 5vw, 50px);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            background:
+                linear-gradient(145deg, rgba(105,169,255,.08), transparent 48%),
+                var(--card);
+            box-shadow: var(--shadow);
+        }
+
+        .letter::after {
+            content: "✦";
+            position: absolute;
+            right: 28px;
+            top: 17px;
+            color: rgba(156,199,255,.23);
+            font-size: 70px;
+        }
+
+        .letter p {
+            max-width: 780px;
+            color: #dce2f5;
+            font-size: 17px;
+            line-height: 1.9;
+        }
+
+        .signature {
+            margin-top: 30px;
+            color: var(--blue-2);
+            font-weight: 950;
+        }
+
+        /* CARDS */
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .memory {
+            min-height: 215px;
+            padding: 23px;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            background: var(--card);
+            transition: .2s ease;
+        }
+
+        .memory:hover {
+            transform: translateY(-5px);
+            background: var(--card-2);
+            border-color: rgba(156,199,255,.3);
+        }
+
+        .memory-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border-radius: 15px;
+            background: rgba(105,169,255,.09);
+            font-size: 22px;
+            margin-bottom: 25px;
+        }
+
+        .memory h3 {
+            margin: 0 0 8px;
+        }
+
+        .memory p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        /* TIMELINE */
+
+        .timeline {
+            position: relative;
+            display: grid;
+            gap: 18px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 12px;
+            bottom: 12px;
+            width: 1px;
+            background: linear-gradient(var(--blue), transparent);
+        }
+
+        .event {
+            position: relative;
+            display: grid;
+            grid-template-columns: 32px 1fr;
+            gap: 16px;
+        }
+
+        .dot {
+            width: 31px;
+            height: 31px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(156,199,255,.3);
+            border-radius: 50%;
+            background: #10162b;
+            z-index: 1;
+            font-size: 12px;
+        }
+
+        .event-card {
+            padding: 21px;
+            border: 1px solid var(--border);
+            border-radius: 19px;
+            background: var(--card);
+        }
+
+        .event-card small {
+            color: var(--blue-2);
+            font-weight: 900;
+        }
+
+        .event-card h3 {
+            margin: 7px 0;
+        }
+
+        .event-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* COUNTER */
+
+        .counter {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .counter-card {
+            padding: 28px 18px;
+            text-align: center;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            background: var(--card);
+        }
+
+        .number {
+            font-size: clamp(32px, 6vw, 55px);
+            font-weight: 950;
+            color: var(--blue-2);
+        }
+
+        .counter-card span:last-child {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* SECRET */
+
+        .secret {
+            text-align: center;
+        }
+
+        .secret-box {
+            padding: 40px 25px;
+            border: 1px solid var(--border);
+            border-radius: 27px;
+            background:
+                radial-gradient(circle at 50% 0%, rgba(169,140,255,.12), transparent 45%),
+                var(--card);
+        }
+
+        #secretMessage {
+            min-height: 60px;
+            display: grid;
+            place-items: center;
+            margin: 20px auto;
+            max-width: 650px;
+            color: #e3e8f8;
+            line-height: 1.7;
+        }
+
+        /* FOTO PLACEHOLDERS */
+
+        .photo-note {
+            padding: 20px;
+            border: 1px dashed rgba(156,199,255,.25);
+            border-radius: 19px;
+            color: var(--muted);
+            line-height: 1.7;
+            background: rgba(105,169,255,.035);
+        }
+
+        .photo-note strong {
+            color: var(--blue-2);
+        }
+
+        footer {
+            padding: 45px 0 60px;
+            text-align: center;
+            color: #727b96;
+            font-size: 12px;
+        }
+
+        /* ANIMAÇÕES */
+
+        .fade {
+            opacity: 0;
+            transform: translateY(14px);
+            animation: appear .75s ease forwards;
+        }
+
+        .fade.delay-1 {
+            animation-delay: .1s;
+        }
+
+        .fade.delay-2 {
+            animation-delay: .2s;
+        }
+
+        .fade.delay-3 {
+            animation-delay: .3s;
+        }
+
+        @keyframes appear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 760px) {
+            .nav {
+                min-height: 62px;
+            }
+
+            .brand {
+                font-size: 14px;
+            }
+
+            .nav-links a {
+                display: none;
+            }
+
+            .hero {
+                min-height: 76vh;
+                padding: 55px 0;
+            }
+
+            .hero h1 {
+                letter-spacing: -3px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            section {
+                padding: 55px 0;
+            }
+
+            .memory-grid,
+            .counter {
+                grid-template-columns: 1fr;
+            }
+
+            .password-box {
+                flex-direction: column;
+            }
+
+            .password-box .btn {
+                width: 100%;
+            }
+
+            .letter,
+            .secret-box {
+                border-radius: 22px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="loginScreen">
+    <div class="login-orb one"></div>
+    <div class="login-orb two"></div>
+
+    <div class="login-card fade">
+        <div class="login-icon">💙</div>
+
+        <h1>Um lugar só nosso</h1>
+
+        <p>
+            Tem uma coisinha aqui que eu fiz pensando em você.
+            Mas primeiro... você precisa da senha.
+        </p>
+
+        <form id="loginForm">
+            <div class="password-box">
+                <input
+                    id="passwordInput"
+                    type="password"
+                    autocomplete="off"
+                    placeholder="Digite a senha..."
+                    aria-label="Senha"
+                >
+
+                <button class="btn btn-primary" type="submit">
+                    Entrar
+                </button>
+            </div>
+        </form>
+
+        <div id="loginError"></div>
+    </div>
+</div>
+
+<div id="site" class="hidden">
+
+    <header>
+        <div class="nav">
+            <div class="brand">
+                <span>✦</span> para você
+            </div>
+
+            <div class="nav-links">
+                <a href="#inicio">Início</a>
+                <a href="#carta">Carta</a>
+                <a href="#momentos">Momentos</a>
+                <a href="#tempo">Tempo</a>
+                <button class="logout" id="logoutButton" type="button">
+                    Sair
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <section id="inicio" class="hero">
+            <div class="hero-content">
+                <div class="badge fade">
+                    UM PEQUENO LUGAR FEITO COM CARINHO
+                </div>
+
+                <h1 class="fade delay-1">
+                    Você deixou meus dias<br>
+                    <span class="gradient">mais bonitos.</span>
+                </h1>
+
+                <p class="fade delay-2">
+                    A gente ainda está escrevendo a nossa história,
+                    então eu não quis inventar mil lembranças.
+                    Preferi guardar aqui algumas das coisas que já
+                    fazem tudo valer a pena.
+                </p>
+
+                <div class="hero-actions fade delay-3">
+                    <a class="btn btn-primary" href="#carta">
+                        Ler uma coisinha 💌
+                    </a>
+
+                    <a class="btn" href="#momentos">
+                        Ver nossos momentos
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="carta">
+
+            <div class="section-title">
+                <div class="eyebrow">Uma carta</div>
+                <h2>Sem textão forçado.</h2>
+                <p>Só algumas coisas que eu realmente queria te dizer.</p>
+            </div>
+
+            <div class="letter">
+                <p>
+                    Eu sei que faz pouco tempo que a gente está junto,
+                    e talvez seja justamente por isso que eu gosto tanto
+                    de pensar no que ainda vem pela frente.
+                </p>
+
+                <p>
+                    A gente ainda está conhecendo um ao outro, criando
+                    nossas próprias piadas, descobrindo pequenas coisas,
+                    tendo conversas aleatórias e acumulando momentos que,
+                    mesmo simples, acabam ficando importantes.
+                </p>
+
+                <p>
+                    Eu não fiz isso para parecer alguma coisa gigantesca.
+                    Fiz porque queria te dar um cantinho que fosse nosso,
+                    mesmo que por enquanto ele ainda esteja começando.
+                </p>
+
+                <p>
+                    E, sinceramente, acho que a melhor parte é essa:
+                    ainda tem muita coisa para colocar aqui.
+                </p>
+
+                <div class="signature">
+                    — de mim, para você. 💙
+                </div>
+            </div>
+
+        </section>
+
+        <section id="momentos">
+
+            <div class="section-title">
+                <div class="eyebrow">O começo</div>
+                <h2>Ainda temos espaço.</h2>
+                <p>
+                    Não precisa ter centenas de fotos para uma história
+                    ter significado.
+                </p>
+            </div>
+
+            <div class="memory-grid">
+
+                <article class="memory">
+                    <div class="memory-icon">💬</div>
+                    <h3>Nossas conversas</h3>
+                    <p>
+                        As conversas aleatórias, os assuntos que começam
+                        de um jeito e terminam completamente diferente.
+                    </p>
+                </article>
+
+                <article class="memory">
+                    <div class="memory-icon">😂</div>
+                    <h3>As coisas bobas</h3>
+                    <p>
+                        Porque às vezes é justamente uma coisa idiota
+                        que vira uma das lembranças mais legais.
+                    </p>
+                </article>
+
+                <article class="memory">
+                    <div class="memory-icon">✨</div>
+                    <h3>O que ainda vem</h3>
+                    <p>
+                        Esse espaço está vazio de propósito.
+                        Um dia a gente vai olhar e lembrar de por que ele
+                        ficou cheio.
+                    </p>
+                </article>
+
+            </div>
+
+        </section>
+
+        <section>
+
+            <div class="section-title">
+                <div class="eyebrow">Linha do tempo</div>
+                <h2>O começo da nossa história.</h2>
+                <p>
+                    Você pode trocar os textos abaixo pelos acontecimentos
+                    reais de vocês.
+                </p>
+            </div>
+
+            <div class="timeline">
+
+                <article class="event">
+                    <div class="dot">01</div>
+
+                    <div class="event-card">
+                        <small>O começo</small>
+                        <h3>Quando tudo começou</h3>
+                        <p>
+                            Coloque aqui a data ou o momento em que vocês
+                            começaram a conversar/ficar/juntos.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="event">
+                    <div class="dot">02</div>
+
+                    <div class="event-card">
+                        <small>Uma lembrança</small>
+                        <h3>Um momento que marcou</h3>
+                        <p>
+                            Pode ser algo simples: uma conversa, um rolê,
+                            uma piada ou qualquer coisa que ficou na cabeça.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="event">
+                    <div class="dot">03</div>
+
+                    <div class="event-card">
+                        <small>Próximo capítulo</small>
+                        <h3>Esse ainda está esperando acontecer.</h3>
+                        <p>
+                            Porque a história não precisa estar pronta
+                            para já ser especial.
+                        </p>
+                    </div>
+                </article>
+
+            </div>
+
+        </section>
+
+        <section id="tempo">
+
+            <div class="section-title">
+                <div class="eyebrow">Desde aquele dia</div>
+                <h2>Quanto tempo já passou?</h2>
+                <p>
+                    Configure a data no código e o contador faz o resto.
+                </p>
+            </div>
+
+            <div class="counter">
+
+                <div class="counter-card">
+                    <div class="number" id="days">0</div>
+                    <span>dias</span>
+                </div>
+
+                <div class="counter-card">
+                    <div class="number" id="hours">0</div>
+                    <span>horas</span>
+                </div>
+
+                <div class="counter-card">
+                    <div class="number" id="minutes">0</div>
+                    <span>minutos</span>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section>
+
+            <div class="section-title">
+                <div class="eyebrow">Fotos</div>
+                <h2>Quando tivermos mais, elas entram aqui.</h2>
+                <p>
+                    Não coloquei fotos aleatórias só para preencher espaço.
+                    Esse lugar fica reservado para as fotos que realmente
+                    forem nossas.
+                </p>
+            </div>
+
+            <div class="photo-note">
+                <strong>Dica:</strong> quando quiser adicionar uma foto,
+                crie uma pasta chamada <strong>fotos</strong> no GitHub,
+                coloque a imagem lá e substitua este bloco por uma
+                tag <strong>&lt;img&gt;</strong>.
+            </div>
+
+        </section>
+
+        <section class="secret">
+
+            <div class="secret-box">
+                <div class="eyebrow">Tem mais uma coisa</div>
+
+                <h2>Você achou a parte secreta.</h2>
+
+                <p id="secretMessage">
+                    Clique no botão. 👀
+                </p>
+
+                <button class="btn btn-primary" id="secretButton" type="button">
+                    Revelar 💙
+                </button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        Feito com carinho, uma linha de código de cada vez. 💙
+    </footer>
+
+</div>
+
+<script>
+"use strict";
+
+/*
+    ============================================================
+    CONFIGURAÇÕES
+    Edite somente estas informações para personalizar o site.
+    ============================================================
+*/
+
+const CONFIG = {
+    senha: "troque-essa-senha",
+
+    // Coloque aqui a data em que vocês começaram.
+    // Exemplo: "2026-09-01T00:00:00"
+    dataInicio: "2026-09-01T00:00:00",
+
+    mensagemSecreta:
+        "Se você chegou até aqui, então eu consegui esconder pelo menos uma coisinha de você. Eu gosto muito de ter você na minha vida. 💙"
+};
+
+
+/*
+    LOGIN
+*/
+
+const loginScreen = document.getElementById("loginScreen");
+const site = document.getElementById("site");
+const loginForm = document.getElementById("loginForm");
+const passwordInput = document.getElementById("passwordInput");
+const loginError = document.getElementById("loginError");
+
+function entrar() {
+
+    const senhaDigitada = passwordInput.value;
+
+    if (senhaDigitada === CONFIG.senha) {
+
+        loginScreen.classList.add("hidden");
+        site.classList.remove("hidden");
+
+        passwordInput.value = "";
+        loginError.textContent = "";
+
+        atualizarContador();
+
+        return;
+    }
+
+    loginError.textContent = "Senha incorreta. Tenta de novo 👀";
+}
+
+loginForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+    entrar();
+});
+
+
+/*
+    SAIR
+*/
+
+document.getElementById("logoutButton").addEventListener("click", function() {
+
+    site.classList.add("hidden");
+    loginScreen.classList.remove("hidden");
+
+    passwordInput.value = "";
+    passwordInput.focus();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});
+
+
+/*
+    CONTADOR
+*/
+
+function atualizarContador() {
+
+    const inicio = new Date(CONFIG.dataInicio);
+    const agora = new Date();
+
+    let diferenca = agora.getTime() - inicio.getTime();
+
+    if (Number.isNaN(diferenca) || diferenca < 0) {
+        diferenca = 0;
+    }
+
+    const minuto = 1000 * 60;
+    const hora = minuto * 60;
+    const dia = hora * 24;
+
+    const dias = Math.floor(diferenca / dia);
+    const horas = Math.floor((diferenca % dia) / hora);
+    const minutos = Math.floor((diferenca % hora) / minuto);
+
+    document.getElementById("days").textContent = dias.toLocaleString("pt-BR");
+    document.getElementById("hours").textContent = horas;
+    document.getElementById("minutes").textContent = minutos;
+}
+
+setInterval(function() {
+
+    if (!site.classList.contains("hidden")) {
+        atualizarContador();
+    }
+
+}, 60000);
+
+
+/*
+    MENSAGEM SECRETA
+*/
+
+document.getElementById("secretButton").addEventListener("click", function() {
+
+    const message = document.getElementById("secretMessage");
+
+    message.textContent = CONFIG.mensagemSecreta;
+
+    this.textContent = "Agora você sabe. 🤍";
+
+    this.disabled = true;
+});
+
+
+/*
+    ATALHO: ENTER NO CAMPO DE SENHA
+*/
+
+passwordInput.focus();
+</script>
+
+</body>
+</html>
